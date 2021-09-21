@@ -1,0 +1,57 @@
+// EACH CATEGORY WILL BE ASSIGNED WITH AN ID TITLE ETC 
+// THIS IS FOR SINGLE ITEM THAT IS MAPPED 
+// WITH THE HOME-SCREEN(categoies_screen)
+import 'package:flutter/material.dart';
+
+class CategoryItem extends StatelessWidget {
+  final String id;
+  final String title;
+  final Color color;
+
+  CategoryItem(this.id, this.title, this.color);
+
+  void selectCategory(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed('/category-meals', arguments: {
+      'id': id,
+      'title': title,
+    }); 
+    //push() navigates to a new screem by creating it on the fly with the help 
+    //of materialPageroute while pushNamed cam only load screens 
+    //which were registered in advance at the main.dart file
+
+    // BELOW CODE IS USED IF U USE PUSH() 
+    // MaterialPageRoute(
+    //   builder: (_) {
+    //     return CategoryMealsScreen(id, title);
+    //   },
+    // ),
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      // for th onTap functionality inkwell is used
+      onTap: () => selectCategory(context),
+      splashColor: Theme.of(context).primaryColor,
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.title,
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              color.withOpacity(0.7),
+              color,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+    );
+  }
+}
